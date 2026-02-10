@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <sdf version="1.8">
-  <world name="empty">
-    
+  <world name="race_world">
+
     <!-- Physics -->
     <physics name="default_physics" type="ode">
       <max_step_size>0.001</max_step_size>
@@ -9,19 +9,10 @@
       <real_time_update_rate>1000</real_time_update_rate>
     </physics>
 
-    <!-- Plugin for physics -->
-    <plugin
-      filename="gz-sim-physics-system"
-      name="gz::sim::systems::Physics">
-    </plugin>
-    <plugin
-      filename="gz-sim-user-commands-system"
-      name="gz::sim::systems::UserCommands">
-    </plugin>
-    <plugin
-      filename="gz-sim-scene-broadcaster-system"
-      name="gz::sim::systems::SceneBroadcaster">
-    </plugin>
+    <!-- Plugins -->
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
 
     <!-- Lighting -->
     <light type="directional" name="sun">
@@ -58,14 +49,23 @@
             </plane>
           </geometry>
           <material>
-            <ambient>0.8 0.8 0.8 1</ambient>
-            <diffuse>0.8 0.8 0.8 1</diffuse>
-            <specular>0.8 0.8 0.8 1</specular>
+            <ambient>0.1 0.6 0.1 1</ambient>
+            <diffuse>0.1 0.8 0.1 1</diffuse>
+            <specular>0.02 0.02 0.02 1</specular>
           </material>
         </visual>
       </link>
-    </model>
+    </model> 
 
+    <!-- Include Sonoma Raceway (environment) -->
+    <include>
+      <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/Sonoma Raceway</uri>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
 
+   
   </world>
 </sdf>
+
+
+
