@@ -74,16 +74,16 @@
 <joint name="body_link_joint" type="fixed">
     <parent link="base_footprint"/>
     <child link="body_link"/>
-    <origin xyz="0 0 ${s1}" rpy="0 0 0"/>  <!-- Lift body above ground -->
+    <origin xyz="0 0 ${r}" rpy="0 0 0"/> 
 </joint>
 
 <!-- Body link -->
 <link name="body_link">
     <visual>
         <geometry>
-            <box size="${a} ${c} ${b}"/>  <!-- Changed from ${a} ${b} ${c} -->
+            <box size="${a} ${c} ${b}"/>
         </geometry>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <origin rpy="0 0 0" xyz="0 0 ${b/2}"/>  
         <material name="red">
             <color rgba="1 0 0 1"/>
         </material>
@@ -91,9 +91,9 @@
 
     <collision>
         <geometry>
-            <box size="${a} ${c} ${b}"/>  <!-- Changed from ${a} ${b} ${c} -->
+            <box size="${a} ${c} ${b}"/>
         </geometry>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <origin rpy="0 0 0" xyz="0 0 ${b/2}"/>  
     </collision>
     <xacro:inertial_body/>
 </link>

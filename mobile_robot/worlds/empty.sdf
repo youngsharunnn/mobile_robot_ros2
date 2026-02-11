@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <sdf version="1.8">
-  <world name="race_world">
-
+  <world name="empty_world">
+    
     <!-- Physics -->
     <physics name="default_physics" type="ode">
       <max_step_size>0.001</max_step_size>
@@ -20,16 +20,10 @@
       <pose>0 0 10 0 0 0</pose>
       <diffuse>0.8 0.8 0.8 1</diffuse>
       <specular>0.2 0.2 0.2 1</specular>
-      <attenuation>
-        <range>1000</range>
-        <constant>0.9</constant>
-        <linear>0.01</linear>
-        <quadratic>0.001</quadratic>
-      </attenuation>
       <direction>-0.5 0.1 -0.9</direction>
     </light>
 
-    <!-- Ground Plane -->
+    <!-- Ground Plane (grass) -->
     <model name="ground_plane">
       <static>true</static>
       <link name="link">
@@ -37,7 +31,7 @@
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>300 300</size>
+              <size>100 100</size>
             </plane>
           </geometry>
         </collision>
@@ -45,27 +39,291 @@
           <geometry>
             <plane>
               <normal>0 0 1</normal>
-              <size>300 300</size>
+              <size>100 100</size>
             </plane>
           </geometry>
           <material>
-            <ambient>0.1 0.6 0.1 1</ambient>
-            <diffuse>0.1 0.8 0.1 1</diffuse>
-            <specular>0.02 0.02 0.02 1</specular>
+            <ambient>0.2 0.6 0.2 1</ambient>
+            <diffuse>0.2 0.7 0.2 1</diffuse>
           </material>
         </visual>
       </link>
-    </model> 
+    </model>
 
-    <!-- Include Sonoma Raceway (environment) -->
+    <!-- Track Surface (asphalt oval) -->
+    <model name="track_main">
+      <static>true</static>
+      <pose>0 0 0.01 0 0 0</pose>
+      <link name="link">
+        <!-- Main straight 1 -->
+        <visual name="straight_1">
+          <pose>0 10 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>30 6 0.02</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.2 0.2 0.2 1</ambient>
+            <diffuse>0.3 0.3 0.3 1</diffuse>
+          </material>
+        </visual>
+        <collision name="straight_1_collision">
+          <pose>0 10 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>30 6 0.02</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <!-- Main straight 2 -->
+        <visual name="straight_2">
+          <pose>0 -10 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>30 6 0.02</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.2 0.2 0.2 1</ambient>
+            <diffuse>0.3 0.3 0.3 1</diffuse>
+          </material>
+        </visual>
+        <collision name="straight_2_collision">
+          <pose>0 -10 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>30 6 0.02</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <!-- Curve 1 (right) -->
+        <visual name="curve_1">
+          <pose>15 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>6 20 0.02</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.2 0.2 0.2 1</ambient>
+            <diffuse>0.3 0.3 0.3 1</diffuse>
+          </material>
+        </visual>
+        <collision name="curve_1_collision">
+          <pose>15 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>6 20 0.02</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <!-- Curve 2 (left) -->
+        <visual name="curve_2">
+          <pose>-15 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>6 20 0.02</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.2 0.2 0.2 1</ambient>
+            <diffuse>0.3 0.3 0.3 1</diffuse>
+          </material>
+        </visual>
+        <collision name="curve_2_collision">
+          <pose>-15 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>6 20 0.02</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <!-- Center line (white) -->
+        <visual name="center_line">
+          <pose>0 0 0.005 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>30 0.15 0.01</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 1 1 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Starting Line Cones -->
     <include>
-      <uri>https://fuel.ignitionrobotics.org/1.0/openrobotics/models/Sonoma Raceway</uri>
-      <pose>0 0 0 0 0 0</pose>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Construction Cone</uri>
+      <name>start_cone_1</name>
+      <pose>-15 13 0 0 0 0</pose>
     </include>
 
-   
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Construction Cone</uri>
+      <name>start_cone_2</name>
+      <pose>-15 7 0 0 0 0</pose>
+    </include>
+
+    <!-- Track Barriers (outer edge) -->
+    <model name="barrier_outer_1">
+      <static>true</static>
+      <pose>0 14 0.25 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>30 0.3 0.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.8 0.1 0.1 1</ambient>
+            <diffuse>0.9 0.1 0.1 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>30 0.3 0.5</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+    <model name="barrier_outer_2">
+      <static>true</static>
+      <pose>0 -14 0.25 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>30 0.3 0.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.8 0.1 0.1 1</ambient>
+            <diffuse>0.9 0.1 0.1 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>30 0.3 0.5</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Inner barriers -->
+    <model name="barrier_inner_1">
+      <static>true</static>
+      <pose>0 6 0.25 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>30 0.3 0.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.8 0.1 0.1 1</ambient>
+            <diffuse>0.9 0.1 0.1 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>30 0.3 0.5</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+    <model name="barrier_inner_2">
+      <static>true</static>
+      <pose>0 -6 0.25 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>30 0.3 0.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.8 0.1 0.1 1</ambient>
+            <diffuse>0.9 0.1 0.1 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>30 0.3 0.5</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Side barriers for curves -->
+    <model name="barrier_curve_1">
+      <static>true</static>
+      <pose>18 0 0.25 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.3 20 0.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.8 0.1 0.1 1</ambient>
+            <diffuse>0.9 0.1 0.1 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.3 20 0.5</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
+    <model name="barrier_curve_2">
+      <static>true</static>
+      <pose>-18 0 0.25 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.3 20 0.5</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.8 0.1 0.1 1</ambient>
+            <diffuse>0.9 0.1 0.1 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.3 20 0.5</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+    </model>
+
   </world>
 </sdf>
-
-
-

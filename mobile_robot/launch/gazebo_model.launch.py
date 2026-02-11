@@ -4,7 +4,6 @@ from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
-
 import xacro
 
 def generate_launch_description():
@@ -15,14 +14,13 @@ def generate_launch_description():
     pathModelFile = os.path.join(get_package_share_directory(namePackage), modelFileRelativePath)
     robotDescription = xacro.process_file(pathModelFile).toxml()
 
-    # Path to empty world file
+    
     empty_world = os.path.join(
         get_package_share_directory(namePackage),
         'worlds',        
-        'empty.sdf'       
+        'empty.sdf'  
     )
 
-    # Launch file from the gazebo ros package
     gazebo_rosPackageLaunch = PythonLaunchDescriptionSource(
         os.path.join(
             get_package_share_directory('ros_gz_sim'),
@@ -34,15 +32,27 @@ def generate_launch_description():
     gazeboLaunch = IncludeLaunchDescription(
         gazebo_rosPackageLaunch,
         launch_arguments={
-            'world_sdf_file': empty_world,
+            'world_sdf_file': empty_world, 
             'on_exit_shutdown': 'true'
         }.items()
     )
 
+    spawn_x = 0.0      
+    spawn_y = 0.0      
+    spawn_z =  0.0    
+    spawn_yaw = 0.0    
+
     spawnModelNodeGazebo = Node(
         package='ros_gz_sim',
         executable='create',
-        arguments=['-name', robotXacroName, '-topic', 'robot_description'],
+        arguments=[
+            '-name', robotXacroName, 
+            '-topic', 'robot_description',
+            '-x', str(spawn_x),
+            '-y', str(spawn_y),
+            '-z', str(spawn_z), 
+            '-Y', str(spawn_yaw)
+        ],
         output='screen',
     )
 
