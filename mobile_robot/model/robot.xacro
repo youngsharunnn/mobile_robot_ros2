@@ -15,7 +15,7 @@
 <xacro:property name="d" value="0.1"/>
 
 <!-- caster dimensions -->
-<xacro:property name="caster_radius" value="${r}"/>  <!-- Same size as drive wheels: 0.15 -->
+<xacro:property name="caster_radius" value="${r}"/>  
 
 <xacro:property name="s1" value="${b/2 + r}"/>
 <xacro:property name="s2" value="${2*r}"/>
@@ -74,16 +74,15 @@
 <joint name="body_link_joint" type="fixed">
     <parent link="base_footprint"/>
     <child link="body_link"/>
-    <origin xyz="0 0 ${r}" rpy="0 0 0"/> 
 </joint>
 
 <!-- Body link -->
 <link name="body_link">
     <visual>
         <geometry>
-            <box size="${a} ${c} ${b}"/>
+            <box size="${a} ${c} ${b}"/>  
         </geometry>
-        <origin rpy="0 0 0" xyz="0 0 ${b/2}"/>  
+        <origin rpy="0 0 0" xyz="0 0 0"/>
         <material name="red">
             <color rgba="1 0 0 1"/>
         </material>
@@ -93,7 +92,7 @@
         <geometry>
             <box size="${a} ${c} ${b}"/>
         </geometry>
-        <origin rpy="0 0 0" xyz="0 0 ${b/2}"/>  
+        <origin rpy="0 0 0" xyz="0 0 0"/>
     </collision>
     <xacro:inertial_body/>
 </link>
@@ -162,7 +161,7 @@
 <joint name="caster_joint" type="fixed">
     <parent link="body_link"/>
     <child link="caster_link"/>
-    <origin rpy="0 0 0" xyz="${-a/3} 0 ${-b/2}"/>  <!-- Positioned at back, touching ground -->
+    <origin rpy="0 0 0" xyz="${-a/3} 0 ${-b/2}"/>
 </joint>
 
 <link name="caster_link">
