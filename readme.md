@@ -30,7 +30,7 @@ mobile_robot/
 
 ## Build
 ```bash
-cd ~/practice/ws_mobile
+cd mobile_robot_ws
 colcon build
 source install/setup.bash
 ```
