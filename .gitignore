@@ -1,12 +1,25 @@
-
-
+# ROS build artifacts
 build/
+devel/
 install/
 log/
 
+# Python
 *.pyc
 __pycache__/
+*.py[cod]
 
+# IDE
 .vscode/
-.DS_Store
+.idea/
 *.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*.orig
